@@ -12,6 +12,7 @@ import WhyDidYouUpdate from './pages/why-did-you-update'
 import User from './pages/User'
 import MyHooks from './pages/my-hooks'
 import ImperativeHandleHooks from './pages/imperative-hook'
+import ContextHooks from './pages/context-hook'
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <li><Link to="/User">User</Link></li>
           <li><Link to="/MyHooks">MyHooks</Link></li>
           <li><Link to="/useImperativeHandle">useImperativeHandle</Link></li>
+          <li><Link to="/useContext">useContext</Link></li>
           <Route path="/BasicDemo" exact component={BasicDemo} />
           <Route path="/ComponentUnmount" exact component={ComponentUnmount} />
           <Route path="/CustomHook" exact component={CustomHook} />
@@ -38,6 +40,7 @@ function App() {
           <Route path="/User" exact component={User} />
           <Route path="/MyHooks" exact component={MyHooks} />
           <Route path="/useImperativeHandle" exact component={ImperativeHandleHooks} />
+          <Route path="/useContext" exact component={ContextHooks} />
         </ul>
       </Router>
     </div>

@@ -1,4 +1,17 @@
-import React from 'react'
+import React, { useState, useCallback, useRef } from 'react'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
+import { makeStyles } from '@material-ui/core/styles'
+
+const useStyles = makeStyles({
+  root: {
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    color: '#ff0'
+  },
+  label: {
+    textTransform: 'capitalize',
+  },
+})
 /* eslint-disable */
 const BasicDemo = () => {
   const [visiable, setVisiable] = React.useState(true)
@@ -10,6 +23,7 @@ const BasicDemo = () => {
     </>
   )
 }
+
 const Demo = () => {
   const [count, setCount] = React.useState(0)
   const handleDelay = React.useCallback((e) => {
@@ -35,4 +49,43 @@ const Demo = () => {
     </>
   )
 }
-export default BasicDemo
+
+function Example() {
+  const classes = useStyles();
+  const [count, setCount] = useState(0);
+  const [text, setText] = useState('');
+  const ref = useRef()
+  ref.current = count
+  const handleAlertClick = useCallback(() => {
+    setTimeout(() => {
+      alert('You clicked on: ' + count + ':' + ref.current);
+    }, 1500);
+  }, [text])
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <p>text: {text} </p>
+      <input onChange={e => setText(e.target.value)}></input>
+      <br />
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+      <button onClick={handleAlertClick}>
+        Show alert
+      </button>
+      <Select
+        labelId="demo-simple-select-label"
+        id="demo-simple-select"
+        value={10}
+        onChange={() => { }}
+      >
+        <MenuItem value={10} classes={{ root: classes.root }}> Ten</MenuItem>
+        <MenuItem value={20}>Twenty</MenuItem>
+        <MenuItem value={30}>Thirty</MenuItem>
+      </Select>
+    </div >
+  );
+}
+
+export default Example
