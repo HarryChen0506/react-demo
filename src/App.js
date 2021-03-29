@@ -13,6 +13,8 @@ import User from './pages/User'
 import MyHooks from './pages/my-hooks'
 import ImperativeHandleHooks from './pages/imperative-hook'
 import ContextHooks from './pages/context-hook'
+import useEventCallbackHooks from './pages/event-callback-hook'
+import useTracedCountHooks from './pages/tracedCount-hook'
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
           <li><Link to="/MyHooks">MyHooks</Link></li>
           <li><Link to="/useImperativeHandle">useImperativeHandle</Link></li>
           <li><Link to="/useContext">useContext</Link></li>
+          <li><Link to="/useEventCallback">useEventCallback</Link></li>
+          <li><Link to="/useTracedCountHooks">useTracedCountHooks</Link></li>
           <Route path="/BasicDemo" exact component={BasicDemo} />
           <Route path="/ComponentUnmount" exact component={ComponentUnmount} />
           <Route path="/CustomHook" exact component={CustomHook} />
@@ -41,6 +45,8 @@ function App() {
           <Route path="/MyHooks" exact component={MyHooks} />
           <Route path="/useImperativeHandle" exact component={ImperativeHandleHooks} />
           <Route path="/useContext" exact component={ContextHooks} />
+          <Route path="/useEventCallback" exact component={useEventCallbackHooks} />
+          <Route path="/useTracedCountHooks" exact component={useTracedCountHooks} />
         </ul>
       </Router>
     </div>

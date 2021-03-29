@@ -2,6 +2,7 @@ import React, { useState, useCallback, useRef } from 'react'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import { makeStyles } from '@material-ui/core/styles'
+import MySelect from './Select'
 
 const useStyles = makeStyles({
   root: {
@@ -12,6 +13,7 @@ const useStyles = makeStyles({
     textTransform: 'capitalize',
   },
 })
+
 /* eslint-disable */
 const BasicDemo = () => {
   const [visiable, setVisiable] = React.useState(true)
@@ -74,6 +76,7 @@ function Example() {
       <button onClick={handleAlertClick}>
         Show alert
       </button>
+      <br />
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
@@ -84,8 +87,53 @@ function Example() {
         <MenuItem value={20}>Twenty</MenuItem>
         <MenuItem value={30}>Thirty</MenuItem>
       </Select>
+      <br />
+      <br />
+      <MySelect
+        value={20}
+      >
+        <MenuItem value={10} classes={{ root: classes.root }}> Ten</MenuItem>
+        <MenuItem value={20}>Twenty</MenuItem>
+        <MenuItem value={30}>Thirty</MenuItem>
+      </MySelect>
     </div >
   );
 }
+
+const groupBy = (array = [], fn) => {
+  const groups = {};
+  const category = new Map();
+  array.forEach((o) => {
+    const group = fn(o);
+    groups[group] = groups[group] || [];
+    groups[group].push(o);
+  });
+  return Object.keys(groups).map(group => ({
+    type: group,
+    list: groups[group],
+  }));
+};
+const groupBy2 = (array = [], fn) => {
+  const category = new Map();
+  array.forEach((item) => {
+    const key = fn(item);
+    if (category.has(key) && Array.isArray(category.get(key))) {
+      category.get(key).push(item)
+    } else {
+      category.set(key, [item])
+    }
+  });
+  const result = []
+  category.forEach((value, key) => {
+    result.push({
+      type: key,
+      list: value,
+    })
+  })
+  return result
+};
+// const arr = [{ name: '张三', age: 1 }, { name: '张三', age: 2 }, { name: '李四', age: 1 }]
+// console.log(groupBy(arr, v => v.age))
+// console.log(groupBy2(arr, v => v.age))
 
 export default Example
