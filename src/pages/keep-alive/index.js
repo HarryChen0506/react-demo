@@ -27,8 +27,7 @@ class KeepAlive extends Component {
     // console.log('init')
     const realContent = await keep(id, children)
     // console.log('append')
-    // this.placeholder = document.createElement('div')
-    this.placeholder.appendChild(realContent)
+    this.placeholder && this.placeholder.appendChild(realContent)
   }
 
   render() {
@@ -36,7 +35,7 @@ class KeepAlive extends Component {
     return (
       <div
         ref={node => {
-          console.log('node--', node.childNodes)
+          console.log('node--', node)
           this.placeholder = node
         }}
       >
@@ -51,16 +50,14 @@ class AliveScope extends Component {
   nodes = {}
   state = {}
 
-  keep = (id, children, placeholder) => new Promise(resolve =>
+  keep = (id, children) => new Promise(resolve =>
     this.setState(
       {
         [id]: { id, children }
       },
       () => {
-        console.log('node', this.nodes[id])
         return resolve(this.nodes[id])
       }
-      // () => resolve(children)
     )
   )
 
