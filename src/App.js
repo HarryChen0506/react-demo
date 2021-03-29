@@ -15,6 +15,7 @@ import ImperativeHandleHooks from './pages/imperative-hook'
 import ContextHooks from './pages/context-hook'
 import useEventCallbackHooks from './pages/event-callback-hook'
 import useTracedCountHooks from './pages/tracedCount-hook'
+import KeepAlive from './pages/keep-alive'
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <li><Link to="/useContext">useContext</Link></li>
           <li><Link to="/useEventCallback">useEventCallback</Link></li>
           <li><Link to="/useTracedCountHooks">useTracedCountHooks</Link></li>
+          <li><Link to="/keepAlive">keepAlive</Link></li>
           <Route path="/BasicDemo" exact component={BasicDemo} />
           <Route path="/ComponentUnmount" exact component={ComponentUnmount} />
           <Route path="/CustomHook" exact component={CustomHook} />
@@ -47,6 +49,7 @@ function App() {
           <Route path="/useContext" exact component={ContextHooks} />
           <Route path="/useEventCallback" exact component={useEventCallbackHooks} />
           <Route path="/useTracedCountHooks" exact component={useTracedCountHooks} />
+          <Route path="/keepAlive" exact component={KeepAlive} />
         </ul>
       </Router>
     </div>
