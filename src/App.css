@@ -1,3 +1,13 @@
 .App {
   padding: 50px 20px 0 20px;
+  display: flex;
+}
+
+.app-menu {
+  margin-right: 20px;
+  background-color: #eee;
+}
+
+.app-container {
+  flex: 1
 }

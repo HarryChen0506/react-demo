@@ -16,12 +16,13 @@ import ContextHooks from './pages/context-hook'
 import useEventCallbackHooks from './pages/event-callback-hook'
 import useTracedCountHooks from './pages/tracedCount-hook'
 import KeepAlive from './pages/keep-alive'
+import ScrollHeightDetector from './pages/scrollHeight-detector'
 
 function App() {
   return (
     <div className="App">
-      <Router>
-        <ul>
+      <ul className='app-menu'>
+        <Router>
           <li><Link to="/BasicDemo" >BasicDemo</Link></li>
           <li><Link to="/ComponentUnmount" >ComponentUnmount</Link></li>
           <li><Link to="/CustomHook" >CustomHook</Link></li>
@@ -36,6 +37,11 @@ function App() {
           <li><Link to="/useEventCallback">useEventCallback</Link></li>
           <li><Link to="/useTracedCountHooks">useTracedCountHooks</Link></li>
           <li><Link to="/keepAlive">keepAlive</Link></li>
+          <li><Link to="/scrollHeightDetector">scrollHeightDetector</Link></li>
+        </Router>
+      </ul>
+      <div className='app-container'>
+        <Router>
           <Route path="/BasicDemo" exact component={BasicDemo} />
           <Route path="/ComponentUnmount" exact component={ComponentUnmount} />
           <Route path="/CustomHook" exact component={CustomHook} />
@@ -50,8 +56,9 @@ function App() {
           <Route path="/useEventCallback" exact component={useEventCallbackHooks} />
           <Route path="/useTracedCountHooks" exact component={useTracedCountHooks} />
           <Route path="/keepAlive" exact component={KeepAlive} />
-        </ul>
-      </Router>
+          <Route path="/scrollHeightDetector" exact component={ScrollHeightDetector} />
+        </Router>
+      </div>
     </div>
   )
 }

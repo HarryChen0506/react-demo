@@ -1,0 +1,12 @@
+.demo-scroll .flexed .selected {
+  border: 1px solid #000;
+  flex: 1;
+  overflow: auto;
+}
+
+.demo-scroll .selected {
+  border: 1px solid #000;
+  height: auto;
+  flex-shrink: 0;
+  /* overflow: auto; */
+}
