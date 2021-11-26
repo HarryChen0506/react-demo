@@ -17,6 +17,7 @@ import useEventCallbackHooks from './pages/event-callback-hook'
 import useTracedCountHooks from './pages/tracedCount-hook'
 import KeepAlive from './pages/keep-alive'
 import ScrollHeightDetector from './pages/scrollHeight-detector'
+import VideoPage from './pages/VideoPage'
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
           <li><Link to="/useTracedCountHooks">useTracedCountHooks</Link></li>
           <li><Link to="/keepAlive">keepAlive</Link></li>
           <li><Link to="/scrollHeightDetector">scrollHeightDetector</Link></li>
+          <li><Link to="/VideoPage">VideoPage</Link></li>
         </Router>
       </ul>
       <div className='app-container'>
@@ -57,6 +59,7 @@ function App() {
           <Route path="/useTracedCountHooks" exact component={useTracedCountHooks} />
           <Route path="/keepAlive" exact component={KeepAlive} />
           <Route path="/scrollHeightDetector" exact component={ScrollHeightDetector} />
+          <Route path="/VideoPage" exact component={VideoPage} />
         </Router>
       </div>
     </div>

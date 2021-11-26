@@ -1,0 +1,21 @@
+.video-container {
+  height: 500px;
+  padding: 20px;
+  background-color: pink;
+}
+
+.video-js.vjs-playing .vjs-tech {
+  pointer-events: auto !important;
+}
+
+.video-js .vjs-time-control {
+  display: block;
+}
+
+.video-js .vjs-remaining-time {
+  display: block;
+}
+
+.vjs-picture-in-picture-control {
+  display: none !important;
+}
