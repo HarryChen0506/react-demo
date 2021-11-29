@@ -23,18 +23,22 @@ class MarkerPlugin extends Plugin {
 
   updateOptions(options) {
     this.options = videojs.mergeOptions(this.options, options)
-    if (this.markerBar) this.markerBar.dispose()
+
+    if (this.markerBar) {
+      this.markerBar.dispose()
+    }
     this.createMarkerBar()
 
     const container = this.player.getDescendant([
       'ControlBar',
-      // 'ProgressControl',
-      // 'SeekBar'
+      'ProgressControl',
+      'SeekBar'
     ])
-    // container.addChild(this.markerBar)
-    const controlBar = this.player.controlBar
-    const properIndex = controlBar.children().indexOf(controlBar.getChild('ProgressControl'))
-    container.addChild(this.markerBar, {}, properIndex)
+    container.addChild(this.markerBar)
+
+    // const controlBar = this.player.controlBar
+    // const properIndex = controlBar.children().indexOf(controlBar.getChild('ProgressControl'))
+    // container.addChild(this.markerBar, {}, properIndex)
 
   }
 

@@ -26,14 +26,14 @@ const Video = (props) => {
       markerPluginRef.current = player.markerPlugin({
         markers: [
           {
-            offset: 1,
+            offset: 10,
             type: 'text',
             data: {
               content: 'content1'
             }
           },
           {
-            offset: 2,
+            offset: 30,
             type: 'text',
             data: {
               content: 'content2'
@@ -61,6 +61,21 @@ const Video = (props) => {
     }
   }, [playerRef])
 
+  const updatePoint = () => {
+    const markerPlugin = markerPluginRef.current
+    markerPlugin.updateOptions({
+      markers: [
+        {
+          offset: 25,
+          type: 'text',
+          data: {
+            content: 'content'
+          }
+        }
+      ],
+    })
+  }
+
   const handleClick = () => {
     const player = playerRef.current
     console.log('player', player)
@@ -70,6 +85,7 @@ const Video = (props) => {
     // console.log('play', player.play())
     const markerPlugin = markerPluginRef.current
     console.log('markerPlugin', markerPlugin)
+    updatePoint()
   }
 
   return (

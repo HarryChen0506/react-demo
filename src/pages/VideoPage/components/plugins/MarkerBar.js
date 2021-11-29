@@ -1,5 +1,5 @@
 import videojs from 'video.js'
-
+import { MarkerPoint } from './MarkerPoint'
 const Component = videojs.getComponent('Component')
 
 /**
@@ -14,20 +14,44 @@ class MarkerBar extends Component {
 
     const markers = []
 
+    for (let i = options.markers.length; i--;) {
+      markers.push(new MarkerPoint(player, options.markers[i]))
+    }
+
     return new MarkerBar(player, { markers, barName: 'markerPoint' })
   }
 
   constructor(player, options) {
     super(player, options)
-    this.enable()
+    console.log('constructor', options)
+    options.markers.forEach((marker) => this.addChild(marker))
+
+    const duration = player.duration()
+    if (Number.isNaN(duration)) {
+      const onLoadedMetaData = () => {
+        this.updatePosition(player, options)
+        player.off('loadedmetadata', onLoadedMetaData)
+      }
+      player.on('loadedmetadata', onLoadedMetaData)
+    } else {
+      this.updatePosition(player, options)
+    }
+  }
+
+  updatePosition = (player, options) => {
+    const duration = player.duration()
+    options.markers.forEach((marker) => {
+      marker.updatePosition(duration)
+    })
   }
 
   enable = () => {
-    this.on(['tap', 'click'], this.handleClick)
+    // this.on(['tap', 'click'], this.handleClick)
   }
 
   disable = () => {
-    this.off(['tap', 'click'], this.handleClick)
+    console.log('disable')
+    // this.off(['tap', 'click'], this.handleClick)
   }
 
   handleClick = (e) => {
@@ -43,11 +67,6 @@ class MarkerBar extends Component {
     const bar = videojs.dom.createEl('div', {
       className: 'vjs-marker-bar'
     })
-    const demo = videojs.dom.createEl('div', {
-      className: 'vjs-marker-bar-demo'
-    })
-    // videojs.dom.appendContent(bar, demo)
-    bar.appendChild(demo)
     return bar
   }
 }
