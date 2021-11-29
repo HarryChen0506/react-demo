@@ -26,7 +26,9 @@ const Video = (props) => {
       markerPluginRef.current = player.markerPlugin({
         markers: [
           {
-            offset: 10,
+            offset: 0,
+            start: 10,
+            end: 20,
             type: 'text',
             data: {
               content: 'content1'
@@ -34,6 +36,8 @@ const Video = (props) => {
           },
           {
             offset: 30,
+            start: 30,
+            end: 40,
             type: 'text',
             data: {
               content: 'content2'
@@ -67,6 +71,8 @@ const Video = (props) => {
       markers: [
         {
           offset: 25,
+          start: 25,
+          end: 35,
           type: 'text',
           data: {
             content: 'content'

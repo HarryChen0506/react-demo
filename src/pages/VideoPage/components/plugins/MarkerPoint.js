@@ -1,5 +1,6 @@
 /* eslint-disable */
 import videojs from 'video.js'
+import MarkerBubble from './MarkerBubble'
 
 const Component = videojs.getComponent('Component')
 const TimeTooltip = videojs.getComponent('TimeTooltip')
@@ -61,26 +62,37 @@ class MarkerPoint extends Component {
     super(player, options)
 
     this.offset = options.offset
+    this.start = options.start
+    this.end = options.end
     this.type = options.type
     this.data = options.data
 
-    this.tip = new MarkerPointTip(player, {
-      data: this.data,
-      offset: this.offset
-    })
-    this.mouseDisplay = player.getDescendant(['ControlBar', 'ProgressControl', 'SeekBar', 'MouseTimeDisplay'])
+    console.log('constructor', options)
 
-    this.addChild(this.tip)
-    this.enableTouchActivity()
-    this.on('mouseenter', (ev) => {
-      this.mouseDisplay.hide()
-      this.tip.timeToltip.show()
-      this.tip.updatePosition()
-    })
-    this.on('mouseleave', (ev) => {
-      this.mouseDisplay.show()
-      this.tip.timeToltip.hide()
-    })
+
+    // this.tip = new MarkerPointTip(player, {
+    //   data: this.data,
+    //   offset: this.offset
+    // })
+    // this.mouseDisplay = player.getDescendant(['ControlBar', 'ProgressControl', 'SeekBar', 'MouseTimeDisplay'])
+
+    // this.addChild(this.tip)
+    // this.enableTouchActivity()
+    // this.on('mouseenter', (ev) => {
+    //   this.mouseDisplay.hide()
+    //   this.tip.timeToltip.show()
+    //   this.tip.updatePosition()
+    // })
+    // this.on('mouseleave', (ev) => {
+    //   this.mouseDisplay.show()
+    //   this.tip.timeToltip.hide()
+    // })
+
+
+    this.leftBubble = new MarkerBubble(player)
+    this.rightBubble = new MarkerBubble(player)
+    this.addChild(this.leftBubble)
+    this.addChild(this.rightBubble)
   }
 
   /**
@@ -101,8 +113,9 @@ class MarkerPoint extends Component {
    * @param {number} duration current video duration
    */
   updatePosition(duration) {
-    console.log(this.offset, duration)
-    this.el_.style.left = (this.offset / duration * 100) + '%'
+    console.log(this.start, duration)
+    this.el_.style.left = (this.start / duration * 100) + '%'
+    this.el_.style.width = ((this.end - this.start) / duration * 100) + '%'
   }
 }
 
