@@ -23,7 +23,7 @@ class MarkerBar extends Component {
 
   constructor(player, options) {
     super(player, options)
-    console.log('constructor', options)
+    // console.log('constructor', options)
     options.markers.forEach((marker) => this.addChild(marker))
 
     const duration = player.duration()

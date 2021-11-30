@@ -8,7 +8,9 @@ class MarkerBubble extends Component {
   constructor(player, options) {
     super(player, options)
     this.player = player
-
+    this.options = options
+    this.side = options.side
+    this.addClass(this.side)
     this.handleMouseDownHandler_ = (e) => this.handleMouseDown(e);
     this.handleMouseUpHandler_ = (e) => this.handleMouseUp(e);
     this.handleMouseMoveHandler_ = (e) => this.handleMouseMove(e);
@@ -20,7 +22,7 @@ class MarkerBubble extends Component {
     this.enabled_ = true;
   }
 
-  handleMouseDown = () => {
+  handleMouseDown() {
     console.log('handleMouseDown', this.el_.ownerDocument, videojs.dom)
     const doc = this.el_.ownerDocument;
     // const seekBar = this.getChild('seekBar');
@@ -31,11 +33,23 @@ class MarkerBubble extends Component {
 
   handleMouseUp(event) {
     this.removeListenersAddedOnMousedownAndTouchstart();
+    const { onConfirm, onReset } = this.options
+    const offset = this.calcPosition(event)
+    if (offset > 40 || offset < 5) {
+      typeof onReset === 'function' && onReset(offset)
+      return
+    }
+    typeof onConfirm === 'function' && onConfirm(offset)
   }
 
-  handleMouseMove = (event) => {
-    console.log('move', event)
-    // const seekBar = this.getChild('seekBar');
+  handleMouseMove(event) {
+    const offset = this.calcPosition(event)
+    const { onChange } = this.options
+    typeof onChange === 'function' && onChange(offset)
+  }
+
+  calcPosition(event) {
+    const duration = this.player.duration()
     const seekBar = this.player.getDescendant([
       'ControlBar',
       'ProgressControl',
@@ -43,9 +57,9 @@ class MarkerBubble extends Component {
     ])
     const Dom = videojs.dom
     const seekBarEl = seekBar.el();
-    const seekBarRect = Dom.findPosition(seekBarEl);
+    // const seekBarRect = Dom.findPosition(seekBarEl);
     let seekBarPoint = Dom.getPointerPosition(seekBarEl, event).x;
-    console.log('seekBar', seekBarPoint)
+    return seekBarPoint * duration
   }
 
   removeListenersAddedOnMousedownAndTouchstart() {

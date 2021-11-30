@@ -66,8 +66,9 @@ class MarkerPoint extends Component {
     this.end = options.end
     this.type = options.type
     this.data = options.data
-
-    console.log('constructor', options)
+    this.cacheStart = options.start
+    this.cacheEnd = options.end
+    // console.log('constructor', options)
 
 
     // this.tip = new MarkerPointTip(player, {
@@ -89,10 +90,54 @@ class MarkerPoint extends Component {
     // })
 
 
-    this.leftBubble = new MarkerBubble(player)
-    this.rightBubble = new MarkerBubble(player)
+    this.leftBubble = new MarkerBubble(
+      player,
+      {
+        side: 'left',
+        onChange: (e) => {
+          this.start = e
+          this.refreshPosition()
+        },
+        onConfirm: (e) => {
+          this.start = e
+          this.refreshPosition()
+        },
+        onReset: () => {
+          this.resetPosition()
+        }
+      }
+    )
+    this.rightBubble = new MarkerBubble(
+      player,
+      {
+        side: 'right',
+        onChange: (e) => {
+          this.end = e
+          this.refreshPosition()
+        },
+        onConfirm: (e) => {
+          this.end = e
+          this.refreshPosition()
+        },
+        onReset: () => {
+          this.resetPosition()
+        }
+      })
     this.addChild(this.leftBubble)
     this.addChild(this.rightBubble)
+  }
+
+  refreshPosition() {
+    const duration = player.duration()
+    this.updatePosition(duration)
+  }
+
+  resetPosition() {
+    this.start = this.cacheStart
+    this.end = this.cacheEnd
+    console.log('reset', [this.start, this.end])
+
+    this.refreshPosition()
   }
 
   /**
@@ -113,10 +158,12 @@ class MarkerPoint extends Component {
    * @param {number} duration current video duration
    */
   updatePosition(duration) {
-    console.log(this.start, duration)
+    console.log('updatePosition', [this.start, this.end], duration)
     this.el_.style.left = (this.start / duration * 100) + '%'
     this.el_.style.width = ((this.end - this.start) / duration * 100) + '%'
   }
+
+
 }
 
 export {
