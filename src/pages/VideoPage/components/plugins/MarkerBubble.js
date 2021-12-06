@@ -1,5 +1,6 @@
 /* eslint-disable */
 import videojs from 'video.js'
+import { EVENTS, events, triggerEvent } from '../../events'
 
 const Component = videojs.getComponent('Component')
 
@@ -40,6 +41,12 @@ class MarkerBubble extends Component {
       return
     }
     typeof onConfirm === 'function' && onConfirm(offset)
+
+    // this.player?.trigger('todo_demo', { data: 111 })
+    triggerEvent(events, EVENTS.GLOBAL_ERROR_MESSAGE, {
+      name: 'hello',
+      age: 20
+    })
   }
 
   handleMouseMove(event) {

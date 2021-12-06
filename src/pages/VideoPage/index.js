@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Video from './components/Video.js'
+// eslint-disable-next-line no-unused-vars
+import { EVENTS, events } from './events'
 import './index.css'
 
 const PageVideo = (() => {
   const playerRef = React.useRef(null)
+
+
 
   const videoJsOptions = { // lookup the options in the docs for more options
     autoplay: true,
@@ -15,7 +19,8 @@ const PageVideo = (() => {
     muted: true,
     inactivityTimeout: 0,
     sources: [{
-      src: '//vjs.zencdn.net/v/oceans.mp4',
+      // src: '//vjs.zencdn.net/v/oceans.mp4',
+      src: 'https://gms-dev.oss-cn-shanghai.aliyuncs.com/gms-dev-video-samples/mp4_test3.mp4'
     }],
     controlBar: {
       children: [
@@ -45,7 +50,23 @@ const PageVideo = (() => {
     player.on('dispose', () => {
       console.log('player will dispose')
     })
+
+    console.log('handlePlayerReady')
+
+    player.on('todo_demo', (e) => {
+      console.log('event', e, e?.target?.value)
+    })
   }
+
+  useEffect(() => {
+    const handler = (e) => {
+      console.log('handler', e)
+    }
+    events['addEventListener'](EVENTS.GLOBAL_ERROR_MESSAGE, handler)
+    return () => {
+      events['removeEventListener'](EVENTS.GLOBAL_ERROR_MESSAGE, handler)
+    }
+  }, [])
 
   return (
     <div>
